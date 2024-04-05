@@ -7,8 +7,8 @@ def login():
 
 @auth.route('/logout')
 def logout():
-    return "<h1>This is the logout page</h1>"
+    return render_template("logout.html")
 
 @auth.route('/signup')
 def signup():
-    return "<h1>This is the signup page</h1>"
+    return render_template("signup.html")
