@@ -1,10 +1,26 @@
-{% extends "base.html" %}{% block title %}Login{% endblock %}
+{% extends "base.html" %}{% block title %}Signup{% endblock %}
 {% block content %}
 <form method="POST">
-    <h3>Login</h3>
-    <div class="mb-3">
-        <label for="email" class="form-label">Email address</label>
-        <input type="email" class="form-control" id="email" placeholder="name@example.com" name="email">
-      </div>
+  <h3 style="margin-top: 30px;text-align: center;" class="mb-5">Signup</h3>
+  <div class="form-outline mb-5" style="max-width: 500px;margin: 0 auto">
+      <label for="email" class="form-label ms-5">Email address</label>
+      <input style="width: 400px;border:1px solid #170e29;" type="email" id="email" placeholder="name@example.com" name="email" class="form-control ms-5">
+  </div>
+  <div class="mb-5" style="max-width: 500px;margin: 0 auto">
+    <label for="name" class="form-label ms-5">Name</label>
+    <input style="width: 400px;border:1px solid #170e29;" type="text" id="name" placeholder="Name" name="name" class="form-control ms-5"> 
+  </div>
+  <div class="mb-5" style="max-width: 500px;margin: 0 auto">
+    <label for="password1" class="form-label ms-5">Password</label>
+    <input style="width: 400px;border:1px solid #170e29;" type="password" id="password1" placeholder="Password" name="password1" class="form-control ms-5">
+  </div>
+  <div class="mb-5" style="max-width: 500px;margin: 0 auto">
+    <label for="password2" class="form-label ms-5">Confirm password</label>
+    <input style="width: 400px;border:1px solid #170e29;" type="password" id="password2" placeholder="Password" name="password2" class="form-control ms-5">
+  </div>
+  <div style="max-width: 400px;margin: 0 auto">
+    <button class="btn" style="background-color: #170e29;color:white">Sign up</button>
+  </div>
+  
 </form>
 {% endblock %}
