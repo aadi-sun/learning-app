@@ -6,12 +6,14 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(150), unique=True)
     password = db.Column(db.String(150))
     name = db.Column(db.String(150))
+    accounttype = db.Column(db.String(100))
 
 class Course(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(150), unique=True)
+    course_name = db.Column(db.String(150), unique=True)
     price = db.Column(db.Integer)
     instructor_name = db.Column(db.String(150))
+    imagfile = db.Column()
 
 class Cart(db.Model):
     id = db.Column(db.Integer, primary_key=True)

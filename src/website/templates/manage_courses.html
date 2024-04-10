@@ -1,0 +1,40 @@
+{% extends "base.html" %}{% block title %}Login{% endblock %}
+{% block content %}
+<!-- write code here -->
+<h3 class="mt-5 mb-5 ms-5 " style="text-align:center ;">Add courses</h3>
+<form method="POST">
+    
+    <!-- <div class="mb-5" style="max-width: 400px;margin:0 auto;">
+      <label for="accounttype" class="form-label" style="margin-left: 0;">Sign up as:</label>
+      <select class="form-select accounttype" aria-label="Default select example" style="width: 400px;border:1px solid #170e29;" name="accounttype">
+        <option value="1">Student</option>
+        <option value="2">Instructor</option>
+      </select>
+    </div> -->
+      
+    <div class="form-outline mb-5" style="max-width: 500px;margin: 0 auto">
+        <label for="course_name" class="form-label ms-5">Course Name</label>
+        <input style="width: 400px;border:1px solid #170e29;" type="text" id="course_name" placeholder="Python Bootcamp" name="course_name" class="form-control ms-5">
+    </div>
+    <div class="mb-5" style="max-width: 500px;margin: 0 auto">
+      <label for="instructor_name" class="form-label ms-5">Instructor Name</label>
+      <input style="width: 400px;border:1px solid #170e29;" type="text" id="instructor_name" placeholder="Name" name="instructor_name" class="form-control ms-5"> 
+    </div>
+    <div class="mb-5" style="max-width: 500px;margin: 0 auto">
+      <label for="price" class="form-label ms-5">Price (in dollars)</label>
+      <input style="width: 400px;border:1px solid #170e29;" type="number" id="price" placeholder="100" name="price" class="form-control ms-5"> 
+    </div>
+    <div for="imagfile" class="form-label mb-2" style="max-width: 400px;margin: 0 auto;">Upload course image</div>
+    <div class="input-group mb-5" style="max-width: 400px;margin: 0 auto;border: 1px solid #170e29; border-radius: 5px;">
+      
+      <input type="file" class="form-control" id="inputGroupFile04" id="imagfile" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+      <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04" style="background-color: #170e29;color: white;">Upload</button>
+    </div>
+        
+    
+    <div style="max-width: 400px;margin: 0 auto">
+      <button class="btn" style="background-color: #170e29;color:white">Add course</button>
+    </div>
+    
+  </form>
+{% endblock %}

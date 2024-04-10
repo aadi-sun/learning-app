@@ -89,3 +89,11 @@ def cart():
         flash('Please login to see this page', category='error')
         return redirect(url_for('auth.login'))
     
+@views.route('/manage_courses')
+def manage_courses():
+    if current_user.is_authenticated and current_user.accounttype == "2":
+        return render_template('manage_courses.html', user=current_user)
+    else:
+        flash('Please login as an instructor to see this page.', category='error')
+        return redirect(url_for('auth.login'))
+    

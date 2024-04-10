@@ -3,6 +3,14 @@
 {% block content %}
 <form method="POST">
   <h3 style="margin-top: 30px;text-align: center;" class="mb-5">Signup</h3>
+  <div class="mb-5" style="max-width: 400px;margin:0 auto;">
+    <label for="accounttype" class="form-label" style="margin-left: 0;">Sign up as:</label>
+    <select class="form-select accounttype" aria-label="Default select example" style="width: 400px;border:1px solid #170e29;" name="accounttype">
+      <option value="1">Student</option>
+      <option value="2">Instructor</option>
+    </select>
+  </div>
+    
   <div class="form-outline mb-5" style="max-width: 500px;margin: 0 auto">
       <label for="email" class="form-label ms-5">Email address</label>
       <input style="width: 400px;border:1px solid #170e29;" type="email" id="email" placeholder="name@example.com" name="email" class="form-control ms-5">
