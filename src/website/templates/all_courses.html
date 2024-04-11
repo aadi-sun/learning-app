@@ -1,18 +1,27 @@
 {% extends "base.html" %}{% block title %}Login{% endblock %}
 {% block content %}
 <h1 class="mt-5 mb-5" style="text-align: center;">All courses</h1>
-{% if all_courses %}
-    {% for course in all_courses %}
-        {% set course_name = course.course_name %}
-        {% set instructor_name = course.instructor_name %}
-        {% set price = course.price %}
-        {% set imagfile = course.imagfile %}
-        <div>
-            <img src="{{ imagfile }}" alt="course_image">
-            <div>{{ course_name }}</div>
-            <div>{{ price }}</div>
-            <div>{{ instructor_name }}</div>
-        </div>
-    {% endfor %}
-{% endif %}
+
+<div class="container">
+    <div class="row">
+        {% if all_courses %}
+            {% for course in all_courses %}
+                {% set course_name = course.course_name %}
+                {% set instructor_name = course.instructor_name %}
+                {% set price = course.price %}
+                {% set imagfile = course.imagfile %}
+                <div class="col-md-4">
+                    <div class="card mb-4" style="max-width: 18rem;margin: 0 auto;border-radius:0px;">
+                        <img class="card-img-top" style="border-radius: 0px;" src="{{ imagfile }}" alt="course_image">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ course_name }}</h5>
+                            <p class="card-text">Instructor: {{ instructor_name }}</p>
+                            <p class="card-text">${{ price }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>
 {% endblock %}

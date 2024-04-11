@@ -42,7 +42,7 @@
   </form>
 
   <h1 class="mb-5 mt-5" style="text-align: center;">Existing courses</h1>
-  <table>
+  <table class="mb-5 table table-bordered border-primary table-striped" style="margin: 0 auto;max-width: 700px;">
     <tr>
       <th>Course ID</th>
       <th>Course name</th>
@@ -61,7 +61,7 @@
           <td>{{ course_name }}</td>
           <td>{{ instructor_name }}</td>
           <td>{{ price }}</td>
-          <td><button>Delete</button></td>
+          <td><button class="btn" style="background-color: #170e29;color: white;">Delete</button></td>
         </tr>
       {% endfor %}
     {% endif %}
