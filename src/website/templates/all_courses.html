@@ -1,0 +1,18 @@
+{% extends "base.html" %}{% block title %}Login{% endblock %}
+{% block content %}
+<h1 class="mt-5 mb-5" style="text-align: center;">All courses</h1>
+{% if all_courses %}
+    {% for course in all_courses %}
+        {% set course_name = course.course_name %}
+        {% set instructor_name = course.instructor_name %}
+        {% set price = course.price %}
+        {% set imagfile = course.imagfile %}
+        <div>
+            <img src="{{ imagfile }}" alt="course_image">
+            <div>{{ course_name }}</div>
+            <div>{{ price }}</div>
+            <div>{{ instructor_name }}</div>
+        </div>
+    {% endfor %}
+{% endif %}
+{% endblock %}

@@ -93,7 +93,8 @@ def cart():
 @views.route('/all_courses')
 def all_courses():
     if current_user.is_authenticated:
-        return render_template('all_courses.html', user=current_user)
+        all_courses = Course.query.all()
+        return render_template('all_courses.html', user=current_user, all_courses=all_courses)
     else:
         flash('Please login to see this page', category='error')
         return redirect(url_for('auth.login'))   
@@ -125,7 +126,8 @@ def manage_courses():
             return redirect(url_for('views.all_courses'))
         
     if current_user.is_authenticated:
-        return render_template('manage_courses.html', user=current_user)
+        all_courses = Course.query.all()
+        return render_template('manage_courses.html', user=current_user, all_courses=all_courses)
     else:
         flash('Please login to see this page.', category='error')
         return redirect(url_for('auth.login'))

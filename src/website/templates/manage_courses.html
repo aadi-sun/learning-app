@@ -40,4 +40,30 @@
     </div>
     
   </form>
+
+  <h1 class="mb-5 mt-5" style="text-align: center;">Existing courses</h1>
+  <table>
+    <tr>
+      <th>Course ID</th>
+      <th>Course name</th>
+      <th>Instructor name</th>
+      <th>Price</th>
+      <th>Delete course</th>
+    </tr>
+    {% if all_courses %}
+      {% for course in all_courses %}
+        {% set course_name = course.course_name %}
+        {% set instructor_name = course.instructor_name %}
+        {% set price = course.price %}
+        {% set course_id = course.id %}
+        <tr>
+          <td>{{ course_id }}</td>
+          <td>{{ course_name }}</td>
+          <td>{{ instructor_name }}</td>
+          <td>{{ price }}</td>
+          <td><button>Delete</button></td>
+        </tr>
+      {% endfor %}
+    {% endif %}
+  </table>
 {% endblock %}
