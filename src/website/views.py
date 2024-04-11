@@ -132,4 +132,14 @@ def manage_courses():
         flash('Please login to see this page.', category='error')
         return redirect(url_for('auth.login'))
     
+@views.route('/clicked', methods=['GET'])
+def delete_course():
+    course_id = request.args.get('course_id')
+    if course_id:
+        course_item = Course.query.filter_by(id=course_id).first()
+        db.session.delete(course_item)
+        db.session.commit()
+    return redirect('/manage_courses#delete_bttn')
+
+    
     
