@@ -13,7 +13,7 @@ class Course(db.Model):
     course_name = db.Column(db.String(150), unique=True)
     price = db.Column(db.Integer)
     instructor_name = db.Column(db.String(150))
-    imagfile = db.Column()
+    imagfile = db.Column(db.String(150))
 
 class Cart(db.Model):
     id = db.Column(db.Integer, primary_key=True)
