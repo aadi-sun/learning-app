@@ -29,3 +29,17 @@
     text-shadow: 0 0 10px black;
 
 }
+
+#buttons
+{
+    text-decoration: none;
+    color: white;
+    border-radius: 10px;
+    background-color:#170e29;
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+
+}
