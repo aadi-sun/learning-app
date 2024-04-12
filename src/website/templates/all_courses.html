@@ -10,6 +10,7 @@
                 {% set instructor_name = course.instructor_name %}
                 {% set price = course.price %}
                 {% set imagfile = course.imagfile %}
+                {% set course_id = course.id %}
                 <div class="col-md-4">
                     <div class="card mb-4" style="max-width: 18rem;margin: 0 auto;border-radius:0px;">
                         <img class="card-img-top" style="border-radius: 0px;" src="{{ imagfile }}" alt="course_image">
@@ -17,6 +18,8 @@
                             <h5 class="card-title">{{ course_name }}</h5>
                             <p class="card-text">Instructor: {{ instructor_name }}</p>
                             <p class="card-text">${{ price }}</p>
+                            <button class="btn" style="background-color: #170e29;color: white;"><a href="/course_{{ course_id }}" style="text-decoration: none;color:white;">View course</a></button>
+                                
                         </div>
                     </div>
                 </div>

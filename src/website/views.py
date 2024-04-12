@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask_login import login_required, current_user
 from . import db
+import os
 from .models import Course
 
 views = Blueprint('views', __name__)
@@ -118,11 +119,19 @@ def manage_courses():
         else:
             #add course to database
             new_course = Course(course_name=course_name, instructor_name=instructor_name, price=price, imagfile=imagfile)
+            
+            
             print(new_course)
             db.session.add(new_course)
             db.session.commit()
+            course_id = new_course.id
             flash("New course added!", category='success')
             print(f"**********{new_course}**********")
+            print(f"{course_id}*************************************************************")
+            with open(f"src/website/templates/course_{course_id}.html","w") as f:
+                with open('src/website/templates/course_base.html') as f1:
+                    course_content = f1.read()
+                    f.write(f"{course_content}")
             return redirect(url_for('views.all_courses'))
         
     if current_user.is_authenticated:
@@ -132,6 +141,15 @@ def manage_courses():
         flash('Please login to see this page.', category='error')
         return redirect(url_for('auth.login'))
     
+@views.route('/course_<int:course_id>')
+def open_course_page(course_id):
+    course_item = Course.query.filter_by(id=course_id).first()
+    course_name = course_item.course_name
+    instructor_name = course_item.instructor_name
+    price = course_item.price
+    imagfile = course_item.imagfile
+    return render_template(f'course_{course_id}.html', user=current_user, title=course_name, instructor_name=instructor_name, price=price, imagfile=imagfile)
+    
 @views.route('/clicked', methods=['GET'])
 def delete_course():
     course_id = request.args.get('course_id')
@@ -139,7 +157,20 @@ def delete_course():
         course_item = Course.query.filter_by(id=course_id).first()
         db.session.delete(course_item)
         db.session.commit()
+        os.remove(f'src/website/templates/course_{course_id}.html')
     return redirect('/manage_courses#delete_bttn')
+
+@views.route('/course_<int:course_id>', methods=['POST','GET'])
+def course_base(course_id):
+    if request.method == 'POST':
+        course_details = request.form.get('course_details')
+    return render_template(f'course_{course_id}.html',course_details=course_details, user=current_user)
+
+
+
+    
+
+
 
     
     
