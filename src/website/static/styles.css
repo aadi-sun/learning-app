@@ -20,28 +20,49 @@
 }
 
 .text {
-    color: white;
+    color: #170e29;
     font-size: 50px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-shadow: 0 0 10px black;
+    text-align: center;
 
 }
 
 #buttons
 {
     text-decoration: none;
+    padding-top: 20px;
+    padding-bottom: 20px;
     color: white;
     border-radius: 10px;
     background-color:#170e29;
-    position: absolute;
-    top: 60%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    display: block;
+    margin:0 auto;
 
 
 }
 
-
+*{
+margin: 0;
+padding: 0;
+font-family: Arial, Helvetica, sans-serif;
+font-size: 15px;
+color: white;
+}
+footer{
+background: #343434;
+padding-top: 50px;
+}
+.container{
+width: 1140px;
+margin: auto;
+display: flex;
+justify-content: left;
+}
+.footer{
+width: 33.3%;
+}
+.copy
+{
+    float:right;
+    text-align: right;
+    margin-left:auto ;
+}
