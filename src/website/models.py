@@ -24,4 +24,9 @@ class Cartcourse(db.Model):
     course_id = db.Column(db.Integer, db.ForeignKey('course.id'), nullable=False)
     cart_id = db.Column(db.Integer, db.ForeignKey('cart.id'), nullable=True)
 
+class CourseContent(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    course_id = db.Column(db.Integer, db.ForeignKey('course.id'))
+    course_content = db.Column(db.String(100000))
+
       
