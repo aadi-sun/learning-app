@@ -15,9 +15,9 @@ class Course(db.Model):
     instructor_name = db.Column(db.String(150))
     imagfile = db.Column(db.String(150))
 
-class Cart(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+# class Cart(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
 class Cartcourse(db.Model):
     id = db.Column(db.Integer, primary_key=True)

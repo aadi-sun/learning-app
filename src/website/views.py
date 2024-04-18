@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask_login import login_required, current_user
 from . import db
 import os
-from .models import Course, CourseContent
+from .models import Course, CourseContent, Cartcourse
 
 views = Blueprint('views', __name__)
 
@@ -13,19 +13,10 @@ def home_page():
     return render_template("index.html", user=current_user)
 
 
-@views.route('/payment')
-def payment():
+@views.route('/favourites')
+def favourites():
     if current_user.is_authenticated:
-        return render_template('payment.html', user=current_user)
-    else:
-        flash('Please login to see this page', category='error')
-        return redirect(url_for('auth.login'))
-
-
-@views.route('/cart')
-def cart():
-    if current_user.is_authenticated:
-        return render_template('cart.html', user=current_user)
+        return render_template('favourites.html', user=current_user)
     else:
         flash('Please login to see this page', category='error')
         return redirect(url_for('auth.login'))
@@ -132,3 +123,17 @@ def course_add_content():
     return render_template('course_add_content.html',user=current_user,course_details=CourseContent.query.order_by(CourseContent.course_id.desc()).first().course_content if CourseContent.query.order_by(CourseContent.course_id.desc()).first() else '')
 
    
+@views.route('/click_cart')
+def add_course_to_cart():
+    course_id = request.args.get('course_id')
+    course = Course.query.filter_by(id=course_id).first()
+    if course:
+        course_name = course.course_name
+        instructor_name = course.instructor_name
+        price = course.price
+        imagfile = course.imagfile
+        course_details = CourseContent.query.filter_by(course_id=course_id).first()
+        # if course_details
+        new_cart_course = Cartcourse(course_id=course_id, )
+    return redirect('/favourites')
+
