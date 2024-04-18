@@ -3,45 +3,135 @@
     --bs-navbar-toggler-icon-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255,255,255,1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
 
-*{
+
+
+* {
     margin: 0px;
     padding: 0px;
     font-family: sans-serif;
+    color: black;
+    box-sizing: border-box
+
 }
 
 #image {
     width: 100%;
     float: right;
     object-fit: cover;
-    background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5),rgba(0,0,0,0.5)),url('page.jpg');
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('page.jpg');
     background-size: cover;
     background-position: center;
     min-height: 100px;
 }
 
 .text {
-    color: white;
+    color: #170e29;
     font-size: 50px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-shadow: 0 0 10px black;
+    text-align: center;
 
 }
 
-#buttons
-{
+.text2 {
+    color: #170e29;
+    font-size: 40px;
+    margin-bottom: 10px;
+    padding-left: 70px;
+
+}
+
+#buttons {
     text-decoration: none;
+    padding-top: 20px;
+    padding-bottom: 20px;
     color: white;
     border-radius: 10px;
-    background-color:#170e29;
-    position: absolute;
-    top: 60%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    background-color: #170e29;
+    display: block;
+    margin:0 auto;
+}
+
+*{
+
+/* font-family: Arial, Helvetica, sans-serif;
+font-size: 15px; */
+
+
+    margin: 0 auto;
 
 
 }
 
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    color: black;
 
+}
+
+footer {
+    background: #343434;
+    padding-top: 50px;
+    margin-top: 300px;
+}
+
+.container {
+    width: 1140px;
+    margin: auto;
+    display: flex;
+    justify-content: left;
+}
+
+.footer {
+    width: 33.3%;
+}
+
+.copy {
+    float: right;
+    text-align: right;
+    margin-left: auto;
+}
+
+#py {
+    max-width: 500px
+}
+
+.wrapper {
+    margin: 70px auto;
+    width: 90%
+}
+
+#py {
+    max-width: 500px;
+    float: left;
+    border: 3px solid#fff;
+    border-radius: 10px;
+    margin-right: 25px;
+}
+
+.footer-content {
+    color: white;
+
+}
+.white-text {
+    color: white;
+}
+
+footer {
+    position: relative;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    height: 100%; 
+}
+
+.copyi {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding:30px;
+}
