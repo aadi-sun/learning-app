@@ -4,7 +4,11 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from . import db
 from flask_login import login_user, logout_user, current_user, login_required
 
+#create blueprint
 auth = Blueprint('auth', __name__)
+
+
+#all paths for login related pages
 
 @auth.route('/login',methods=['GET','POST'])
 def login():

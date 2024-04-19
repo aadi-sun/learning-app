@@ -4,7 +4,10 @@ from . import db
 import os
 from .models import Course, CourseContent, Cartcourse
 
+#creating blueprint
 views = Blueprint('views', __name__)
+
+#defining paths of website
 
 
 @views.route('/')
@@ -44,11 +47,16 @@ def all_courses():
 
 @views.route('/manage_courses', methods=['GET','POST'])
 def manage_courses():
+    """"instructors can add courses; if the info entered is valid, 
+    a course is created and an html file is created for the course"""
     if request.method == 'POST':
         course_name = request.form.get('course_name')
         instructor_name = request.form.get('instructor_name')
         price = request.form.get('price')
         imagfile = request.form.get('imagfile')
+
+        #display error for invalid input
+
         if len(course_name) < 4:
             flash('Course name should be more than 4 characters.', category='error')
         elif len(instructor_name) < 2:
@@ -64,6 +72,7 @@ def manage_courses():
             db.session.commit()
             course_id = new_course.id
             flash("New course added!", category='success')
+            #create new file for the course
             with open(f"src/website/templates/course_{course_id}.html","w") as f:
                 with open('src/website/templates/course_base.html') as f1:
                     course_content = f1.read()
@@ -90,25 +99,39 @@ def open_course_page(course_id):
         course_details = ''
     else:
         course_details = course_details.course_content
-    return render_template(f'course_{course_id}.html',course_id=course_id, user=current_user, title=course_name, instructor_name=instructor_name, price=price, imagfile=imagfile,course_details=course_details)
+    return render_template(f'course_{course_id}.html',course_id=course_id, user=current_user, 
+                           title=course_name, instructor_name=instructor_name, price=price, imagfile=imagfile,
+                           course_details=course_details)
     
 
 @views.route('/clicked', methods=['GET'])
 def delete_course():
+    """"deletes the course, its html file and
+      the course from favourites page of users"""
     course_id = request.args.get('course_id')
     if course_id:
+
+        #delete the course from the database
+
         course_item = Course.query.filter_by(id=course_id).first()
         db.session.delete(course_item)
         db.session.commit()
+
+        #delete the course file
+
         os.remove(f'src/website/templates/course_{course_id}.html')
         course_post = CourseContent.query.filter_by(course_id=course_id).all()
         for course in course_post:
             db.session.delete(course)
         db.session.commit()
+
+        #if someone has this course in their favourites, delete it from their favourites
+
         this_course_in_fav = Cartcourse.query.filter_by(course_id=course_id).all()
         for each_course in this_course_in_fav:
             db.session.delete(each_course)
             db.session.commit()
+
     return redirect('/manage_courses#delete_bttn')
 
 
@@ -124,10 +147,13 @@ def delete_from_fav():
 
 @views.route('/course_add_content', methods=['POST', 'GET'])
 def course_add_content():
+    """the course content should show up in the course page and
+      old course content, if exists, should be deleted"""
     course_id = request.args.get('course_id')
     if request.method == 'POST':
         course_details = request.form.get("course_details")
         course_post_old = CourseContent.query.filter_by(course_id=course_id).all()
+        #delete old course content
         if course_post_old:
             for course in course_post_old:
                 db.session.delete(course)
