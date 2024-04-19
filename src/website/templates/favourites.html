@@ -19,8 +19,9 @@
                         <div class="card-body">
                             <h5 class="card-title mb-2">{{ course_name }}</h5>
                             <div class="card-text mb-2">Instructor: {{ instructor_name }}</div>
-                            <div class="card-text mb-2">{{ price }}</div>
-                            <a class="btn" style="background-color: #170e29;color: white;" href="/course_{{ course_id }}">View course</a>
+                            <div class="card-text mb-2">$ {{ price }}</div>
+                            <a class="btn mb-2" style="background-color: #170e29;color: white;" href="/course_{{ course_id }}">View course</a>
+                            <a class="btn" style="background-color: #170e29;color: white;" href="/delete_click?course_id={{ course_id }}">Remove from favourites</a>
                         </div>
                     </div>
                 </div>

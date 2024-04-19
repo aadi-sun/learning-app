@@ -105,7 +105,21 @@ def delete_course():
         for course in course_post:
             db.session.delete(course)
         db.session.commit()
+        this_course_in_fav = Cartcourse.query.filter_by(course_id=course_id).all()
+        for each_course in this_course_in_fav:
+            db.session.delete(each_course)
+            db.session.commit()
     return redirect('/manage_courses#delete_bttn')
+
+
+@views.route('/delete_click')
+def delete_from_fav():
+    course_id = request.args.get('course_id')
+    if course_id:
+        course_item = Cartcourse.query.filter_by(course_id=course_id, user_id=current_user.id).first()
+        db.session.delete(course_item)
+        db.session.commit()
+    return redirect('/favourites')
 
 
 @views.route('/course_add_content', methods=['POST', 'GET'])
