@@ -16,9 +16,10 @@ def home_page():
     return render_template("index.html", user=current_user)
 
 
+@login_required
 @views.route('/favourites')
 def favourites():
-    if current_user.is_authenticated and current_user.accounttype == "1":
+    if current_user.accounttype == "1":
         all_fav = Cartcourse.query.all()
         all_courses_present = Course.query.all()
         return render_template("favourites.html",user=current_user, all_fav=all_fav, all_courses_present=all_courses_present)
@@ -45,6 +46,7 @@ def all_courses():
         return redirect(url_for('auth.login'))   
 
 
+@login_required
 @views.route('/manage_courses', methods=['GET','POST'])
 def manage_courses():
     """"instructors can add courses; if the info entered is valid, 
@@ -87,6 +89,7 @@ def manage_courses():
         return redirect(url_for('auth.login'))
     
 
+@login_required
 @views.route('/course_<int:course_id>')
 def open_course_page(course_id):
     course_item = Course.query.filter_by(id=course_id).first()
@@ -103,6 +106,7 @@ def open_course_page(course_id):
                            title=course_name, instructor_name=instructor_name, price=price, imagfile=imagfile,
                            course_details=course_details)
     
+
 
 @views.route('/clicked', methods=['GET'])
 def delete_course():
@@ -135,6 +139,7 @@ def delete_course():
     return redirect('/manage_courses#delete_bttn')
 
 
+
 @views.route('/delete_click')
 def delete_from_fav():
     """Deletes the course from the favourites part of the database
@@ -147,6 +152,7 @@ def delete_from_fav():
     return redirect('/favourites')
 
 
+@login_required
 @views.route('/course_add_content', methods=['POST', 'GET'])
 def course_add_content():
     """the course content should show up in the course page and

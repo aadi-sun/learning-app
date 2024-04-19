@@ -8,11 +8,13 @@ db = SQLAlchemy()
 DB_NAME = "database.db"
 
 def create_app():
+    #make and initialize app
     app = Flask(__name__)
     app.config['SECRET_KEY'] = 'bkgkrvi,si.jgikcvgestn'
     app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{DB_NAME}"
     db.init_app(app)
 
+    #import and register blueprints
 
     from .views import views
     from .auth import auth
@@ -20,6 +22,7 @@ def create_app():
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
 
+    #this is t ensure that models is loaded before database is created
     from .models import User
     create_database(app)
 
