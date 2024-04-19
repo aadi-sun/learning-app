@@ -15,8 +15,10 @@ def home_page():
 
 @views.route('/favourites')
 def favourites():
-    if current_user.is_authenticated:
-        return render_template('favourites.html', user=current_user)
+    if current_user.is_authenticated and current_user.accounttype == "1":
+        all_fav = Cartcourse.query.all()
+        all_courses_present = Course.query.all()
+        return render_template("favourites.html",user=current_user, all_fav=all_fav, all_courses_present=all_courses_present)
     else:
         flash('Please login to see this page', category='error')
         return redirect(url_for('auth.login'))
@@ -88,7 +90,7 @@ def open_course_page(course_id):
         course_details = ''
     else:
         course_details = course_details.course_content
-    return render_template(f'course_{course_id}.html', user=current_user, title=course_name, instructor_name=instructor_name, price=price, imagfile=imagfile,course_details=course_details)
+    return render_template(f'course_{course_id}.html',course_id=course_id, user=current_user, title=course_name, instructor_name=instructor_name, price=price, imagfile=imagfile,course_details=course_details)
     
 
 @views.route('/clicked', methods=['GET'])
@@ -127,13 +129,26 @@ def course_add_content():
 def add_course_to_cart():
     course_id = request.args.get('course_id')
     course = Course.query.filter_by(id=course_id).first()
+    
     if course:
-        course_name = course.course_name
-        instructor_name = course.instructor_name
-        price = course.price
-        imagfile = course.imagfile
-        course_details = CourseContent.query.filter_by(course_id=course_id).first()
-        # if course_details
-        new_cart_course = Cartcourse(course_id=course_id, )
-    return redirect('/favourites')
+        courses_existent = Cartcourse.query.filter_by(course_id=course_id,user_id=current_user.id).first()
+        if not courses_existent:
+            course_name = course.course_name
+            instructor_name = course.instructor_name
+            price = course.price
+            imagfile = course.imagfile
+            new_cart_course = Cartcourse(course_id=course_id,user_id=current_user.id, course_name=course_name, instructor_name=instructor_name, price=price, imagfile=imagfile)
+            db.session.add(new_cart_course)
+            db.session.commit()
+            flash('Course added to favourites!!',category='success')
+            all_fav = Cartcourse.query.all()
+            all_courses_present = Course.query.all()
+            return render_template('favourites.html',user=current_user, all_fav=all_fav, all_courses_present=all_courses_present)
+        else:
+            flash('Course is already in favourites!!')
+            return render_template(f'course_{ course_id }.html',user=current_user)
+    return render_template('all_courses.html',user=current_user)
+    
+
+    
 

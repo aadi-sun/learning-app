@@ -1,6 +1,31 @@
 {% extends "base.html" %}{% block title %}Login{% endblock %}
 {% block content %}
 <!-- write code here -->
-<h1 style="text-align: center;" class="mb-5 mt-5">Contents</h1>
 
+<h1 style="text-align: center;" class="mb-5 mt-5">Contents</h1>
+<div class="container">
+    <div class="row">
+        {% for course in all_fav %}
+            
+            {% if course and course.user_id == current_user.id and course not in all_courses_present %}
+                {% set course_id = course.course_id %}
+                {% set course_name = course.course_name %}
+                {% set instructor_name = course.instructor_name %}
+                {% set price = course.price %}
+                {% set imagfile = course.imagfile %}
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="{{ imagfile }}" class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title mb-2">{{ course_name }}</h5>
+                            <div class="card-text mb-2">Instructor: {{ instructor_name }}</div>
+                            <div class="card-text mb-2">{{ price }}</div>
+                            <a class="btn" style="background-color: #170e29;color: white;" href="/course_{{ course_id }}">View course</a>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
 {% endblock %}
