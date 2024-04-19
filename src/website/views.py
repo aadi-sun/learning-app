@@ -137,6 +137,8 @@ def delete_course():
 
 @views.route('/delete_click')
 def delete_from_fav():
+    """Deletes the course from the favourites part of the database
+      and then redirects it back to the favourites page"""
     course_id = request.args.get('course_id')
     if course_id:
         course_item = Cartcourse.query.filter_by(course_id=course_id, user_id=current_user.id).first()
