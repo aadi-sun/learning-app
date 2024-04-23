@@ -11,7 +11,8 @@
                 {% set price = course.price %}
                 {% set imagfile_name = course.imagfile_name %}
                 {% set course_id = course.id %}
-                <div class="col-md-4">
+                {% set col_classes = "col-md-12" if loop.length == 1 else "col-md-4" %}
+                <div class="{{ col_classes }}">
                     <div class="card mb-4" style="margin: 0 auto;border-radius:0px;">
                         <img class="card-img-top" style="border-radius: 0px;" src="static/{{ imagfile_name }}" alt="course_image">
                         <div class="card-body">
@@ -30,7 +31,8 @@
         {% set price = course.price %}
         {% set imagfile_name = course.imagfile_name %}
         {% set course_id = course.id %}
-        <div class="col-sm-4">
+        {% set col_classes = "col-md-12" if loop.length == 1 else "col-md-4" %}
+        <div class="{{ col_classes }}">
             <div class="card mb-4 mr-4" style="margin: 0 auto;border-radius:0px;">
                 <img class="card-img-top" style="border-radius: 0px;" src="static/{{ imagfile_name }}" alt="course_image">
                 <div class="card-body">

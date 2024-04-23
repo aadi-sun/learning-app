@@ -53,6 +53,8 @@ def manage_courses():
     """"instructors can add courses; if the info entered is valid, 
     a course is created and an html file is created for the course"""
     if request.method == 'POST':
+        all_courses = Course.query.all()
+        course_names = [course.course_name for course in all_courses]
         course_name = request.form.get('course_name')
         instructor_name = request.form.get('instructor_name')
         price = request.form.get('price')
@@ -67,6 +69,8 @@ def manage_courses():
 
         if len(course_name) < 4:
             flash('Course name should be more than 4 characters.', category='error')
+        elif course_name in course_names:
+            flash('A course already exists with the same name.', category='error')
         elif len(instructor_name) < 2:
             flash('Instructor name should be more than 2 characters', category='error')
         elif not imagfile:
