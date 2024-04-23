@@ -1,14 +1,10 @@
-/* write css here. Include all css and image files in static folder. */
 .navbar-toggler-icon {
     --bs-navbar-toggler-icon-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255,255,255,1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
 
 * {
-    margin: 0px;
-    padding: 0px;
-    font-family: sans-serif;
-    color: black;
-    box-sizing: border-box
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 #image {
@@ -22,71 +18,32 @@
 }
 
 .text {
-    color: #170e29;
     font-size: 50px;
     text-align: center;
-
 }
 
 .text2 {
-    color: #170e29;
     font-size: 40px;
-    margin-bottom: 10px;
     padding-left: 70px;
-
-}
-
-#buttons {
-    text-decoration: none;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    color: white;
-    border-radius: 10px;
-    background-color: #170e29;
-    display: block;
-    margin: 0 auto;
-
-
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 15px;
-    color: black;
 }
 
 footer {
     background: #343434;
     padding-top: 50px;
     margin-top: 300px;
+    position: relative;
 }
 
 .container {
     width: 1140px;
     margin: auto;
     display: flex;
-    justify-content: left;
-}
-
-.footer {
-    width: 33.3%;
-}
-
-.copy {
-    float: right;
-    text-align: right;
-    margin-left: auto;
-}
-
-#py {
-    max-width: 500px
+    align-items: flex-end;
 }
 
 .wrapper {
-    margin: 70px auto;
-    width: 90%
+    margin: 0px auto;
+    width: 90%;
 }
 
 #py {
@@ -99,21 +56,10 @@ footer {
 
 .footer-content {
     color: white;
-
 }
+
 .white-text {
     color: white;
-}
-
-footer {
-    position: relative;
-}
-
-.container {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    height: 100%; 
 }
 
 .copyi {
