@@ -5,7 +5,7 @@ from . import db
 from flask_login import login_user, logout_user, current_user, login_required
 import smtplib
 from email.message import EmailMessage
-
+import os
 
 #create blueprint
 auth = Blueprint('auth', __name__)
@@ -82,11 +82,12 @@ def signup():
             msg['To'] = toaddrs
             #content of mail
             msg.set_content(mailtext)
+            pas = os.environ.get('SMTP_PASS')
 
             #send the mail
             connection = smtplib.SMTP("smtp.gmail.com", 587)
             connection.starttls()
-            connection.login(user=fromaddr, password="xkvo gsqi qayq kfib")
+            connection.login(user=fromaddr, password=pas)
             connection.send_message(msg)
             connection.close()           
 

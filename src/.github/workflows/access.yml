@@ -1,0 +1,16 @@
+name: My Workflow
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  my-job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Access Secret
+        env:
+          MY_SECRET: ${{ secrets.SMTP_PASS }}
+        run: echo $SMTP_PASS
