@@ -184,6 +184,7 @@ def course_add_content():
         if course_post_old:
             for course in course_post_old:
                 db.session.delete(course)
+        #add the new content to the database
         course_post = CourseContent(course_id=course_id, course_content=course_details)
         db.session.add(course_post)
         db.session.commit()
@@ -196,11 +197,15 @@ def course_add_content():
    
 @views.route('/click_cart')
 def add_course_to_cart():
+    
     course_id = request.args.get('course_id')
+    #get the course
     course = Course.query.filter_by(id=course_id).first()
     
     if course:
+        #check if it is already in cart of the same person (same course)
         courses_existent = Cartcourse.query.filter_by(course_id=course_id,user_id=current_user.id).first()
+        #if it is not already present, add it to the database
         if not courses_existent:
             course_name = course.course_name
             instructor_name = course.instructor_name
@@ -225,12 +230,16 @@ def add_course_to_cart():
 @login_required
 @views.route('/results', methods=['POST','GET'])
 def search():
+    #get what the user entered
     user_input = request.args.get("query")
     all_courses = Course.query.all()
     relevant_results = []
+    #list of names of all courses
     all_courses_names_list = [i.course_name for i in all_courses]
+    #if user input is a substring of course name, the course name is stored in a list
     for i in all_courses_names_list:
         if user_input.lower() in i.lower():
             relevant_results.append(i)
+    #redirected to search_results page
     return render_template('search_results.html',relevant_results=relevant_results, user=current_user, Course=Course)
         
