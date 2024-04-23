@@ -2,7 +2,6 @@ from . import db
 from flask_login import UserMixin
 
 
-
 class User(db.Model, UserMixin):
     """accounttype = 1 for student and 2 for instructor"""
     id = db.Column(db.Integer, primary_key=True)
@@ -33,6 +32,7 @@ class Cartcourse(db.Model):
     instructor_name = db.Column(db.String(150))
     imagfile_name = db.Column(db.String(150))
     imagfile_path = db.Column(db.String(1500))
+
 
 class CourseContent(db.Model):
     """the course content added by an instructor for a specific course"""

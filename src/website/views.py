@@ -121,7 +121,6 @@ def open_course_page(course_id):
                            course_details=course_details)
     
 
-
 @views.route('/clicked', methods=['GET'])
 def delete_course():
     """"deletes the course, its html file and
@@ -158,7 +157,6 @@ def delete_course():
             db.session.commit()
 
     return redirect('/manage_courses#delete_bttn')
-
 
 
 @views.route('/delete_click')

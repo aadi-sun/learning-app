@@ -7,6 +7,7 @@ from flask_login import LoginManager
 db = SQLAlchemy()
 DB_NAME = "database.db"
 
+
 def create_app():
     #make and initialize app
     app = Flask(__name__)
@@ -37,6 +38,7 @@ def create_app():
         return User.query.get(int(id))
 
     return app
+
 
 def create_database(app):
     """if database doesnt already exist, create it"""
