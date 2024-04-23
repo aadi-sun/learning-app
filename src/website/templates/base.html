@@ -46,10 +46,13 @@
               {% endif %}
               
             </ul>
-            <form class="d-flex" role="search">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-              <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
+            <!DOCTYPE html>
+    <form class="d-flex" role="search" action="results.html"> 
+        <input class="form-control me-2" type="search" name="query" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
+    <h1>Search Results</h1>
+    <p>Displaying results for: <strong>{{ query }}</strong></p>
           </div>
         </div>
       </nav>

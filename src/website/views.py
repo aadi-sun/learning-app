@@ -7,9 +7,12 @@ from .models import Course, CourseContent
 views = Blueprint('views', __name__)
 
 
-@views.route('/')
+@views.route('/', methods=['GET','POST'])
 @login_required
 def home_page():
+    if request.method == 'POST':
+        course_name = request.form.get('query')
+        return "recieve"
     return render_template("index.html", user=current_user)
 
 
@@ -131,4 +134,17 @@ def course_add_content():
         return redirect(f'/course_{course_id}')
     return render_template('course_add_content.html',user=current_user,course_details=CourseContent.query.order_by(CourseContent.course_id.desc()).first().course_content if CourseContent.query.order_by(CourseContent.course_id.desc()).first() else '')
 
-   
+@views.route('/results', methods=['POST', 'GET'])
+def search():
+    if request.method == 'POST':
+        user=request.form.get("query")
+        allcourses=Course.query.all()
+        relevantresults=[]
+        allcoursesnameslist=[i.course_name for i in allcourses ]
+        for i in allcoursesnameslist:
+            if user in i:
+                relevantresults.append(i)
+        return render_template('searchresults.html',relevantresults=relevantresults)
+
+        
+    
