@@ -17,7 +17,8 @@ class Course(db.Model):
     course_name = db.Column(db.String(150), unique=True)
     price = db.Column(db.Integer)
     instructor_name = db.Column(db.String(150))
-    imagfile = db.Column(db.String(150))
+    imagfile_name = db.Column(db.String(150))
+    imagfile_path = db.Column(db.String(1500))
 
 
 class Cartcourse(db.Model):
@@ -30,8 +31,8 @@ class Cartcourse(db.Model):
     course_name = db.Column(db.String(150)) 
     price = db.Column(db.Integer)
     instructor_name = db.Column(db.String(150))
-    imagfile = db.Column(db.String(150))
-
+    imagfile_name = db.Column(db.String(150))
+    imagfile_path = db.Column(db.String(1500))
 
 class CourseContent(db.Model):
     """the course content added by an instructor for a specific course"""

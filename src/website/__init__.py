@@ -12,6 +12,7 @@ def create_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = 'bkgkrvi,si.jgikcvgestn'
     app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{DB_NAME}"
+    app.config['UPLOAD_FOLDER'] = 'static'
     db.init_app(app)
 
     #import and register blueprints

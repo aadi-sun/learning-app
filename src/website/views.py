@@ -4,6 +4,7 @@ from . import db
 import os
 from .models import Course, CourseContent, Cartcourse
 
+
 #creating blueprint
 views = Blueprint('views', __name__)
 
@@ -55,7 +56,12 @@ def manage_courses():
         course_name = request.form.get('course_name')
         instructor_name = request.form.get('instructor_name')
         price = request.form.get('price')
-        imagfile = request.form.get('imagfile')
+        imagfile = request.files['imagfile']
+        if imagfile:
+            filename = imagfile.filename
+            filepath = os.path.join('src/website/static', filename)
+            imagfile.save(filepath)
+            
 
         #display error for invalid input
 
@@ -64,12 +70,12 @@ def manage_courses():
         elif len(instructor_name) < 2:
             flash('Instructor name should be more than 2 characters', category='error')
         elif not imagfile:
-            flash('Please include path to course image', category='error')
+            flash('Please include image', category='error')
         elif not price:
             flash('Please mention the price.', category='error')
         else:
             #add course to database
-            new_course = Course(course_name=course_name, instructor_name=instructor_name, price=price, imagfile=imagfile)
+            new_course = Course(course_name=course_name, instructor_name=instructor_name, price=price, imagfile_name=filename, imagfile_path=filepath)
             db.session.add(new_course)
             db.session.commit()
             course_id = new_course.id
@@ -96,14 +102,16 @@ def open_course_page(course_id):
     course_name = course_item.course_name
     instructor_name = course_item.instructor_name
     price = course_item.price
-    imagfile = course_item.imagfile
+    imagfile_name = course_item.imagfile_name
+    imagfile_path = course_item.imagfile_path
     course_details = CourseContent.query.filter_by(course_id=course_id).first()
     if not course_details:
         course_details = ''
     else:
         course_details = course_details.course_content
     return render_template(f'course_{course_id}.html',course_id=course_id, user=current_user, 
-                           title=course_name, instructor_name=instructor_name, price=price, imagfile=imagfile,
+                           title=course_name, instructor_name=instructor_name, price=price, 
+                           imagfile_name=imagfile_name, imagfile_path=imagfile_path, 
                            course_details=course_details)
     
 
@@ -114,10 +122,17 @@ def delete_course():
       the course from favourites page of users"""
     course_id = request.args.get('course_id')
     if course_id:
+        course_item = Course.query.filter_by(id=course_id).first()
+        if course_item:
+
+            #remove the course image from the static folder first
+
+            imagfile_name = course_item.imagfile_name
+            imagfile_path = course_item.imagfile_path
+            os.remove(f'src/website/static/{imagfile_name}')
 
         #delete the course from the database
 
-        course_item = Course.query.filter_by(id=course_id).first()
         db.session.delete(course_item)
         db.session.commit()
 
@@ -184,8 +199,11 @@ def add_course_to_cart():
             course_name = course.course_name
             instructor_name = course.instructor_name
             price = course.price
-            imagfile = course.imagfile
-            new_cart_course = Cartcourse(course_id=course_id,user_id=current_user.id, course_name=course_name, instructor_name=instructor_name, price=price, imagfile=imagfile)
+            imagfile_name = course.imagfile_name
+            imagfile_path = course.imagfile_path
+            new_cart_course = Cartcourse(course_id=course_id,user_id=current_user.id, 
+                                         course_name=course_name, instructor_name=instructor_name, 
+                                         price=price, imagfile_name=imagfile_name, imagfile_path=imagfile_path)
             db.session.add(new_cart_course)
             db.session.commit()
             flash('Course added to favourites!!',category='success')
@@ -196,6 +214,15 @@ def add_course_to_cart():
             flash('Course is already in favourites!!')
             return render_template(f'course_{ course_id }.html',user=current_user)
     return render_template('all_courses.html',user=current_user)
+
+
+
+
+
+
+
+
+    
     
 
     

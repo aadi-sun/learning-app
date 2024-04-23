@@ -11,10 +11,11 @@
                 {% set course_name = course.course_name %}
                 {% set instructor_name = course.instructor_name %}
                 {% set price = course.price %}
-                {% set imagfile = course.imagfile %}
+                {% set imagfile_path = course.imagfile_path %}
+                {% set imagfile_name = course.imagfile_name %}
                 <div class="col-md-4">
                     <div class="card">
-                        <img src="{{ imagfile }}" class="card-img-top">
+                        <img src="static/{{ imagfile_name }}" class="card-img-top">
                         <div class="card-body">
                             <h5 class="card-title mb-2">{{ course_name }}</h5>
                             <div class="card-text mb-2">Instructor: {{ instructor_name }}</div>
