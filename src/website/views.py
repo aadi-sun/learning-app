@@ -11,7 +11,7 @@ views = Blueprint('views', __name__)
 #defining paths of website
 
 
-@views.route('/')
+@views.route('/', methods=['GET','POST'])
 @login_required
 def home_page():
     return render_template("index.html", user=current_user)
@@ -221,15 +221,16 @@ def add_course_to_cart():
             return render_template(f'course_{ course_id }.html',user=current_user)
     return render_template('all_courses.html',user=current_user)
 
+@views.route('/results', methods=['POST','GET'])
+def search():
+    if request.method == 'GET':
+        user=request.form.get("query")
+        allcourses=Course.query.all()
+        relevantresults=[]
+        allcoursesnameslist=[i.course_name for i in allcourses ]
+        for i in allcoursesnameslist:
+            if user in i:
+                relevantresults.append(i)
+        return render_template('searchresults.html',relevantresults=relevantresults)
 
-
-
-
-
-
-
-    
-    
-
-    
-
+        

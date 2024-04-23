@@ -1,0 +1,33 @@
+{% extends "base.html" %}{% block title %}Login{% endblock %}
+{% block content %}
+<h1>
+    SEARCHRESULTS
+</h1>
+<div class="container">
+    <div class="row">
+        {% for course in relavantresults %}
+        {% set courseitem=Course.query.filter_by(course_name=course).first() %}
+                {% set course_id = courseitem.course_id %}
+                {% set course_name = courseitem.course_name %}
+                {% set instructor_name = courseitem.instructor_name %}
+                {% set price = courseitem.price %}
+                {% set imagfile_name = courseitem.imagfile_name %}
+                {% set col_classes = "col-md-12" if loop.length == 1 else "col-md-4" %}
+                <div class="{{ col_classes }}">
+                    <div class="card">
+                        <img src="static/{{ imagfile_name }}" class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title mb-2">{{ course_name }}</h5>
+                            <div class="card-text mb-2">Instructor: {{ instructor_name }}</div>
+                            <div class="card-text mb-2">$ {{ price }}</div>
+                            <a class="btn" style="background-color: #170e29;color: white;" href="/course_{{ course_id }}">View course</a>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+
+
+{% endblock %}   
