@@ -5,6 +5,7 @@ import os
 from .models import Course, CourseContent, Cartcourse
 
 
+
 #creating blueprint
 views = Blueprint('views', __name__)
 
@@ -14,7 +15,8 @@ views = Blueprint('views', __name__)
 @views.route('/', methods=['GET','POST'])
 @login_required
 def home_page():
-    return render_template("index.html", user=current_user)
+    name = current_user.name
+    return render_template("index.html", user=current_user, name=name)
 
 
 @login_required
@@ -29,6 +31,7 @@ def favourites():
         return redirect(url_for('auth.login'))
 
 
+@login_required
 @views.route('/all_courses')
 def all_courses():
     if current_user.is_authenticated:
