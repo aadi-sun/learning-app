@@ -221,16 +221,16 @@ def add_course_to_cart():
             return render_template(f'course_{ course_id }.html',user=current_user)
     return render_template('all_courses.html',user=current_user)
 
+
+@login_required
 @views.route('/results', methods=['POST','GET'])
 def search():
-    if request.method == 'GET':
-        user=request.form.get("query")
-        allcourses=Course.query.all()
-        relevantresults=[]
-        allcoursesnameslist=[i.course_name for i in allcourses ]
-        for i in allcoursesnameslist:
-            if user in i:
-                relevantresults.append(i)
-        return render_template('searchresults.html',relevantresults=relevantresults)
-
+    user_input = request.args.get("query")
+    all_courses = Course.query.all()
+    relevant_results = []
+    all_courses_names_list = [i.course_name for i in all_courses]
+    for i in all_courses_names_list:
+        if user_input.lower() in i.lower():
+            relevant_results.append(i)
+    return render_template('search_results.html',relevant_results=relevant_results, user=current_user, Course=Course)
         

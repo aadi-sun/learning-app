@@ -1,17 +1,16 @@
-{% extends "base.html" %}{% block title %}Login{% endblock %}
+{% extends "base.html" %}{% block title %}Search Results{% endblock %}
 {% block content %}
-<h1>
-    SEARCHRESULTS
-</h1>
+<h1 style="text-align: center;" class="mb-5 mt-5">Search Results</h1>
 <div class="container">
     <div class="row">
-        {% for course in relavantresults %}
-        {% set courseitem=Course.query.filter_by(course_name=course).first() %}
-                {% set course_id = courseitem.course_id %}
-                {% set course_name = courseitem.course_name %}
-                {% set instructor_name = courseitem.instructor_name %}
-                {% set price = courseitem.price %}
-                {% set imagfile_name = courseitem.imagfile_name %}
+        {% if relevant_results != [] %}
+        {% for course in relevant_results %}
+                {% set course_item = Course.query.filter_by(course_name=course).first() %}
+                {% set course_id = course_item.course_id %}
+                {% set course_name = course_item.course_name %}
+                {% set instructor_name = course_item.instructor_name %}
+                {% set price = course_item.price %}
+                {% set imagfile_name = course_item.imagfile_name %}
                 {% set col_classes = "col-md-12" if loop.length == 1 else "col-md-4" %}
                 <div class="{{ col_classes }}">
                     <div class="card">
@@ -24,8 +23,11 @@
                         </div>
                     </div>
                 </div>
-            {% endif %}
+            
         {% endfor %}
+        {% else %}
+                <h6 style="font-size: 25px; text-align: center;">No results found!</h6>
+        {% endif %}
     </div>
 </div>
 
