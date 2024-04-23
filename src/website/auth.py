@@ -57,7 +57,8 @@ def signup():
             flash("Length of a password must be greater than or equal to 8 characters", category='error')
         else:
             #add user to database
-            new_user = User(email=email, password=generate_password_hash(password1, method='pbkdf2:sha256'), name=name, accounttype=accounttype)
+            new_user = User(email=email, password=generate_password_hash(password1, method='pbkdf2:sha256'), 
+                            name=name, accounttype=accounttype)
             db.session.add(new_user)
             db.session.commit()
             flash("Account created!", category='success')

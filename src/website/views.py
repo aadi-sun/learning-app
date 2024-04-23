@@ -53,18 +53,19 @@ def manage_courses():
     """"instructors can add courses; if the info entered is valid, 
     a course is created and an html file is created for the course"""
     if request.method == 'POST':
+        #collect previous course names to see if the course has the same name as any of them
         all_courses = Course.query.all()
         course_names = [course.course_name for course in all_courses]
         course_name = request.form.get('course_name')
         instructor_name = request.form.get('instructor_name')
         price = request.form.get('price')
         imagfile = request.files['imagfile']
+        #get the filename and save the image in static folder
         if imagfile:
             filename = imagfile.filename
             filepath = os.path.join('src/website/static', filename)
             imagfile.save(filepath)
             
-
         #display error for invalid input
 
         if len(course_name) < 4:
@@ -79,7 +80,8 @@ def manage_courses():
             flash('Please mention the price.', category='error')
         else:
             #add course to database
-            new_course = Course(course_name=course_name, instructor_name=instructor_name, price=price, imagfile_name=filename, imagfile_path=filepath)
+            new_course = Course(course_name=course_name, instructor_name=instructor_name, price=price, 
+                                imagfile_name=filename, imagfile_path=filepath)
             db.session.add(new_course)
             db.session.commit()
             course_id = new_course.id
@@ -189,7 +191,9 @@ def course_add_content():
         db.session.commit()
         flash('Course content added', category='success')
         return redirect(f'/course_{course_id}')
-    return render_template('course_add_content.html',user=current_user,course_details=CourseContent.query.order_by(CourseContent.course_id.desc()).first().course_content if CourseContent.query.order_by(CourseContent.course_id.desc()).first() else '')
+    return render_template('course_add_content.html',user=current_user,
+                           course_details=CourseContent.query.order_by(CourseContent.course_id.desc()).first().course_content
+                             if CourseContent.query.order_by(CourseContent.course_id.desc()).first() else '')
 
    
 @views.route('/click_cart')
