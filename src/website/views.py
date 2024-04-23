@@ -14,9 +14,6 @@ views = Blueprint('views', __name__)
 @views.route('/', methods=['GET','POST'])
 @login_required
 def home_page():
-    if request.method == 'POST':
-        course_name = request.form.get('query')
-        return "recieve"
     return render_template("index.html", user=current_user)
 
 
@@ -236,9 +233,9 @@ def add_course_to_cart():
 
     
 
-@views.route('/results', methods=['POST', 'GET'])
+@views.route('/results', methods=['POST','GET'])
 def search():
-    if request.method == 'POST':
+    if request.method == 'GET':
         user=request.form.get("query")
         allcourses=Course.query.all()
         relevantresults=[]
