@@ -74,7 +74,7 @@ def signup():
             fromaddr = "sunnapjaadi@gmail.com"
             toaddrs = email
             subject = "Welcome to app_name!!"
-            mailtext = "Hi! Welcome to our website. Have fun learning! "
+            mailtext = "Hi! Welcome to our website. Have fun learning!"
 
             msg = EmailMessage()
             msg['Subject'] = subject
@@ -82,12 +82,11 @@ def signup():
             msg['To'] = toaddrs
             #content of mail
             msg.set_content(mailtext)
-            pas = os.environ.get('SMTP_PASS')
-
+            MY_SECRET_VARIABLE = os.environ["MY_SECRET_VARIABLE"]
             #send the mail
             connection = smtplib.SMTP("smtp.gmail.com", 587)
             connection.starttls()
-            connection.login(user=fromaddr, password=pas)
+            connection.login(user=fromaddr, password=MY_SECRET_VARIABLE)
             connection.send_message(msg)
             connection.close()           
 
