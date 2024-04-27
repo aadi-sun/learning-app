@@ -193,7 +193,7 @@ def course_add_content():
         return redirect(f'/course_{course_id}')
     return render_template('course_add_content.html',user=current_user,
                            course_details=CourseContent.query.order_by(CourseContent.course_id.desc()).first().course_content
-                             if CourseContent.query.order_by(CourseContent.course_id.desc()).first() else '')
+                            if CourseContent.query.order_by(CourseContent.course_id.desc()).first() else '')
 
    
 @views.route('/click_cart')
