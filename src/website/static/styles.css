@@ -1,47 +1,78 @@
-/* write css here. Include all css and image files in static folder. */
 .navbar-toggler-icon {
     --bs-navbar-toggler-icon-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255,255,255,1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
 
-*{
-    margin: 0px;
-    padding: 0px;
-    font-family: sans-serif;
+* {
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 #image {
     width: 100%;
     float: right;
     object-fit: cover;
-    background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5),rgba(0,0,0,0.5)),url('page.jpg');
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('page.jpg');
     background-size: cover;
     background-position: center;
     min-height: 100px;
 }
 
 .text {
-    color: white;
     font-size: 50px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-shadow: 0 0 10px black;
-
+    text-align: center;
 }
 
-#buttons
-{
-    text-decoration: none;
-    color: white;
+.text2 {
+    font-size: 40px;
+    padding-left: 70px;
+}
+
+footer {
+    background: #343434;
+    padding-top: 50px;
+    margin-top: 300px;
+    position: relative;
+}
+
+.container {
+    width: 1140px;
+    margin: auto;
+    display: flex;
+    align-items: flex-end;
+}
+
+.wrapper {
+    margin: 0px auto;
+    width: 90%;
+}
+
+#py {
+    max-width: 500px;
+    float: left;
+    border: 3px solid#fff;
     border-radius: 10px;
-    background-color:#170e29;
-    position: absolute;
-    top: 60%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-
-
+    margin-right: 25px;
 }
 
+.footer-content {
+    color: white;
+}
 
+.white-text {
+    color: white;
+}
+
+.copyi {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding:30px;
+}
+
+.quote-container{
+    padding:15px;
+    font-size:25px;
+    text-align:center;
+    background-color: #9ca5d9;
+
+}

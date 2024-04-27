@@ -1,4 +1,5 @@
-{% extends "base.html" %}{% block title %}Login{% endblock %}
+
+{% extends "base.html" %}{% block title %}All courses{% endblock %}
 {% block content %}
 <h1 class="mt-5 mb-5" style="text-align: center;">All courses</h1>
 
@@ -9,19 +10,17 @@
                 {% set course_name = course.course_name %}
                 {% set instructor_name = course.instructor_name %}
                 {% set price = course.price %}
-                {% set imagfile = course.imagfile %}
+                {% set imagfile_name = course.imagfile_name %}
                 {% set course_id = course.id %}
-                <div class="col-md-4">
-                    <div class="card mb-4" style="max-width: 18rem;margin: 0 auto;border-radius:0px;">
-                        <img class="card-img-top" style="border-radius: 0px;" src="{{ imagfile }}" alt="course_image">
+                {% set col_classes = "col-md-12" if loop.length == 1 else "col-md-4" %}
+                <div class="{{ col_classes }}">
+                    <div class="card mb-4" style="margin: 0 auto;border-radius:0px;">
+                        <img class="card-img-top" style="border-radius: 0px;" src="static/{{ imagfile_name }}" alt="course_image">
                         <div class="card-body">
                             <h5 class="card-title">{{ course_name }}</h5>
                             <p class="card-text">Instructor: {{ instructor_name }}</p>
                             <p class="card-text">${{ price }}</p>
-                            <button class="btn" style="background-color: #170e29;color: white;"><a href="/course_{{ course_id }}" style="text-decoration: none;color:white;">View course</a></button>
-
-                            
-                                
+                            <button class="btn" style="background-color: #170e29;color: white;"><a href="/course_{{ course_id }}" style="text-decoration: none;color:white;">View course</a></button>  
                         </div>
                     </div>
                 </div>
@@ -31,19 +30,18 @@
         {% set course_name = course.course_name %}
         {% set instructor_name = course.instructor_name %}
         {% set price = course.price %}
-        {% set imagfile = course.imagfile %}
+        {% set imagfile_name = course.imagfile_name %}
         {% set course_id = course.id %}
-        <div class="col-md-4">
-            <div class="card mb-4" style="max-width: 18rem;margin: 0 auto;border-radius:0px;">
-                <img class="card-img-top" style="border-radius: 0px;" src="{{ imagfile }}" alt="course_image">
+        {% set col_classes = "col-md-12" if loop.length == 1 else "col-md-4" %}
+        <div class="{{ col_classes }}">
+            <div class="card mb-4 mr-4" style="margin: 0 auto;border-radius:0px;">
+                <img class="card-img-top" style="border-radius: 0px;" src="static/{{ imagfile_name }}" alt="course_image">
                 <div class="card-body">
                     <h5 class="card-title">{{ course_name }}</h5>
                     <p class="card-text">Instructor: {{ instructor_name }}</p>
                     <p class="card-text">${{ price }}</p>
                     <button class="btn" style="background-color: #170e29;color: white;"><a href="/course_{{ course_id }}" style="text-decoration: none;color:white;">View course</a></button>
-                    <button class="btn mb-3 mt-3" style="background-color: #170e29;color:white;"><a href="/course_add_content?course_id={{course_id}}" style="text-decoration: none;color: white;">Add course content</a></button>
-                    
-                        
+                    <button class="btn mb-3 mt-3" style="background-color: #170e29;color:white;"><a href="/course_add_content?course_id={{course_id}}" style="text-decoration: none;color: white;">Add course content</a></button>    
                 </div>
             </div>
         </div>

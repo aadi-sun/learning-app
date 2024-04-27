@@ -3,11 +3,20 @@ from .models import User
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import db
 from flask_login import login_user, logout_user, current_user, login_required
+import smtplib
+from email.message import EmailMessage
+import os
 
+#create blueprint
 auth = Blueprint('auth', __name__)
+
+
+#all paths for login related pages
+
 
 @auth.route('/login',methods=['GET','POST'])
 def login():
+    #use hashes for the password
     if request.method == 'POST':
         email = request.form.get('email')
         password = request.form.get('password1')
@@ -23,21 +32,23 @@ def login():
             flash('Email does not exist.', category='error')
     return render_template("login.html", user=current_user)
 
+
 @auth.route('/logout')
 @login_required
 def logout():
     logout_user()
     return redirect(url_for('auth.login'))
 
+
 @auth.route('/signup',methods=['GET','POST'])
 def signup():
+    """before signing up, check if the info entered are valid"""
     if request.method == 'POST':
         email = request.form.get('email')
         name = request.form.get('name')
         password1 = request.form.get('password1')
         password2 = request.form.get('password2')
         accounttype = request.form.get('accounttype')
-        print(f"**********{accounttype}**********")
 
         user = User.query.filter_by(email=email).first()
         if user:
@@ -52,10 +63,36 @@ def signup():
             flash("Length of a password must be greater than or equal to 8 characters", category='error')
         else:
             #add user to database
-            new_user = User(email=email, password=generate_password_hash(password1, method='pbkdf2:sha256'), name=name, accounttype=accounttype)
+            new_user = User(email=email, password=generate_password_hash(password1, method='pbkdf2:sha256'), 
+                            name=name, accounttype=accounttype)
             db.session.add(new_user)
             db.session.commit()
             flash("Account created!", category='success')
+
+            #a mail is sent to the users mail id
+
+            fromaddr = "sunnapjaadi@gmail.com"
+            toaddrs = email
+            subject = "Welcome to app_name!!"
+            mailtext = "Hi! Welcome to our website. Have fun learning!"
+
+            msg = EmailMessage()
+            msg['Subject'] = subject
+            msg['From'] = fromaddr
+            msg['To'] = toaddrs
+            #content of mail
+            msg.set_content(mailtext)
+            MY_SECRET_VARIABLE = os.environ["MY_SECRET_VARIABLE"]
+            #send the mail
+            connection = smtplib.SMTP("smtp.gmail.com", 587)
+            connection.starttls()
+            connection.login(user=fromaddr, password=MY_SECRET_VARIABLE)
+            connection.send_message(msg)
+            connection.close()           
+
             return redirect(url_for('views.home_page'))
         
     return render_template("signup.html", user=current_user)
+
+
+    

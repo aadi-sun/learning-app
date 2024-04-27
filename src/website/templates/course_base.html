@@ -1,4 +1,5 @@
-{% extends "base.html" %}{% block title %}Login{% endblock %}
+
+{% extends "base.html" %}{% block title %}Course{% endblock %}
 {% block content %}
 <!-- write code here -->
 <!--Just write title for title and put any image and style them. I will replace them with the real stuff later.-->
@@ -20,5 +21,7 @@
 </p>
 
 
-<button class="btn mt-4 mb-4" style="background-color: #170e29;"><a href="/cart" style="text-decoration: none;color: white;">Add course to cart</a></button> 
+{% if user.accounttype == "1" %}
+    <button class="btn mt-4 mb-4" style="background-color: #170e29;"><a href="/click_cart?course_id={{ course_id }}" style="text-decoration: none;color: white;">Add course to cart</a></button> 
+{% endif %}
 {% endblock %}

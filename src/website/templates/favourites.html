@@ -1,0 +1,33 @@
+
+{% extends "base.html" %}{% block title %}Favourites{% endblock %}
+{% block content %}
+
+<h1 style="text-align: center;" class="mb-5 mt-5">Contents</h1>
+<div class="container">
+    <div class="row">
+        {% for course in all_fav %}
+            
+            {% if course and course.user_id == current_user.id and course not in all_courses_present %}
+                {% set course_id = course.course_id %}
+                {% set course_name = course.course_name %}
+                {% set instructor_name = course.instructor_name %}
+                {% set price = course.price %}
+                {% set imagfile_name = course.imagfile_name %}
+                {% set col_classes = "col-md-12" if loop.length == 1 else "col-md-4" %}
+                <div class="{{ col_classes }}">
+                    <div class="card">
+                        <img src="static/{{ imagfile_name }}" class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title mb-2">{{ course_name }}</h5>
+                            <div class="card-text mb-2">Instructor: {{ instructor_name }}</div>
+                            <div class="card-text mb-2">$ {{ price }}</div>
+                            <a class="btn" style="background-color: #170e29;color: white;" href="/course_{{ course_id }}">View course</a>
+                            <a class="btn" style="background-color: #170e29;color: white;" href="/delete_click?course_id={{ course_id }}">Remove from favourites</a>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

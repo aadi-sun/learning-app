@@ -1,6 +1,7 @@
-{% extends "base.html" %}{% block title %}Login{% endblock %}
+
+{% extends "base.html" %}{% block title %}Post course content{% endblock %}
 {% block content %}
-<!-- write code here -->
+
 
 {% if user.is_authenticated and user.accounttype == "2" %}
     <form method="POST">
