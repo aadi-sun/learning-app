@@ -1,5 +1,3 @@
-
-        
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask_login import login_required, current_user
 from . import db
@@ -15,7 +13,7 @@ views = Blueprint('views', __name__)
 @views.route('/', methods=['GET', 'POST'])
 @login_required
 def home_page():
-    # Get a random quote
+    # Get a random quote to display in home page
     quote = get_random_quote()
     return render_template("index.html", user=current_user, quote=quote)
 
@@ -26,7 +24,8 @@ def favourites():
     if current_user.accounttype == "1":
         all_fav = Cartcourse.query.all()
         all_courses_present = Course.query.all()
-        return render_template("favourites.html", user=current_user, all_fav=all_fav, all_courses_present=all_courses_present)
+        return render_template("favourites.html", user=current_user, all_fav=all_fav,
+                                all_courses_present=all_courses_present)
     else:
         flash('Please login to see this page', category='error')
         return redirect(url_for('auth.login'))
@@ -45,7 +44,8 @@ def all_courses():
                 course_details = course_details.course_content
             else:
                 course_details = ''
-        return render_template('all_courses.html', user=current_user, all_courses=all_courses,course_details=course_details)
+        return render_template('all_courses.html', user=current_user, 
+                               all_courses=all_courses,course_details=course_details)
     else:
         flash('Please login to see this page', category='error')
         return redirect(url_for('auth.login'))   
@@ -224,7 +224,8 @@ def add_course_to_cart():
             flash('Course added to favourites!!',category='success')
             all_fav = Cartcourse.query.all()
             all_courses_present = Course.query.all()
-            return render_template('favourites.html',user=current_user, all_fav=all_fav, all_courses_present=all_courses_present)
+            return render_template('favourites.html',user=current_user, all_fav=all_fav, 
+                                   all_courses_present=all_courses_present)
         else:
             flash('Course is already in favourites!!')
             return render_template(f'course_{ course_id }.html',user=current_user)
@@ -255,12 +256,16 @@ def search():
 def get_random_quote():
     quotes = [
         "The greatest glory in living lies not in never falling, but in rising every time we fall. -Nelson Mandela",
-"The way to get started is to quit talking and begin doing. -Walt Disney",
-"Your time is limited, so don't waste it living someone else's life. Don't be trapped by dogma – which is living with the results of other people's thinking. -Steve Jobs",
-"The future belongs to those who believe in the beauty of their dreams. -Eleanor Roosevelt",
-"If you look at what you have in life, you'll always have more. If you look at what you don't have in life, you'll never have enough. -Oprah Winfrey",
-"If you set your goals ridiculously high and it's a failure, you will fail above everyone else's success. -James Cameron",
-"You may say I'm a dreamer, but I'm not the only one. I hope someday you'll join us. And the world will live as one. -John Lennon"
+        "The way to get started is to quit talking and begin doing. -Walt Disney",
+        """Your time is limited, so don't waste it living someone else's life. Don't be trapped by dogma 
+        – which is living with the results of other people's thinking. -Steve Jobs""",
+        "The future belongs to those who believe in the beauty of their dreams. -Eleanor Roosevelt",
+        """If you look at what you have in life, you'll always have more. 
+        If you look at what you don't have in life, you'll never have enough. -Oprah Winfrey""",
+        """If you set your goals ridiculously high and it's a failure, 
+        you will fail above everyone else's success. -James Cameron""",
+        """You may say I'm a dreamer, but I'm not the only one. I hope someday you'll join us.
+          And the world will live as one. -John Lennon"""
 ]
 
     return random.choice(quotes)
