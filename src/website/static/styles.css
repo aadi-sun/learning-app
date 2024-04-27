@@ -54,10 +54,6 @@ footer {
     margin-right: 25px;
 }
 
-.footer-content {
-    color: white;
-}
-
 .white-text {
     color: white;
 }
@@ -74,23 +70,28 @@ footer {
     font-size:25px;
     text-align:center;
     background-color: #9ca5d9;
-
-}
-.courseimg {
-    width:50%;
 }
 
-.course{
-    float:right;
-    padding-right:200px;
-
-
-}
-.content{
-    text-align:center;
-}
 .paragraph{
     margin:0 auto;
-    max-width:400px;
+    max-width:1000px;
+    padding:20px;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    white-space: pre-wrap;
+}
 
+@media (min-width:600px){
+    .courseimg {
+        width:50%;
+    }
+    
+    .flex-part {
+        display:flex;
+    }
+}
+
+@media (max-width:599px){
+    .courseimg {
+        width:100%;
+    }
 }
