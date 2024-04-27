@@ -265,8 +265,13 @@ def get_random_quote():
         """If you set your goals ridiculously high and it's a failure, 
         you will fail above everyone else's success. -James Cameron""",
         """You may say I'm a dreamer, but I'm not the only one. I hope someday you'll join us.
-          And the world will live as one. -John Lennon"""
+          And the world will live as one. -John Lennon""",
+        "Education is the most powerful weapon which you can use to change the world. - Nelson Mandela",
+        "Education is one thing no one can take away from you. —Elin Nordegren",
+        "However difficult life may seem, there is always something you can do and succeed at. — Stephen Hawking"
 ]
+    
+    random_quote = random.choice(quotes)
 
-    return random.choice(quotes)
+    return random_quote
 
