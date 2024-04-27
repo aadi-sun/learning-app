@@ -15,11 +15,13 @@ Team members:
 <br>
 Devapriya Pradeep
 <br>
-Write full name
+Gnanamayi konda
 <br>
-Write full name
+Bandarla Neelima
 
 <Br><br>
-Image credits: Add image sources here
+Image credits: https://images.app.goo.gl/YhrQ8BSE5g1gQDZK8
+https://images.app.goo.gl/cJgBkjE5GE5f4Ktb7
+
 <br><br>
 Bootstrap was used for css styling

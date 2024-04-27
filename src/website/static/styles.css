@@ -68,3 +68,11 @@ footer {
     right: 0;
     padding:30px;
 }
+
+.quote-container{
+    padding:15px;
+    font-size:25px;
+    text-align:center;
+    background-color: #9ca5d9;
+
+}

@@ -1,22 +1,20 @@
+
+        
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask_login import login_required, current_user
 from . import db
 import os
 from .models import Course, CourseContent, Cartcourse
 
-
-
-#creating blueprint
+# Creating blueprint
 views = Blueprint('views', __name__)
 
-#defining paths of website
+# Defining paths of website
 
-
-@views.route('/', methods=['GET','POST'])
+@views.route('/', methods=['GET', 'POST'])
 @login_required
 def home_page():
-    name = current_user.name
-    return render_template("index.html", user=current_user, name=name)
+    return render_template("index.html", user=current_user)
 
 
 @login_required
@@ -25,7 +23,7 @@ def favourites():
     if current_user.accounttype == "1":
         all_fav = Cartcourse.query.all()
         all_courses_present = Course.query.all()
-        return render_template("favourites.html",user=current_user, all_fav=all_fav, all_courses_present=all_courses_present)
+        return render_template("favourites.html", user=current_user, all_fav=all_fav, all_courses_present=all_courses_present)
     else:
         flash('Please login to see this page', category='error')
         return redirect(url_for('auth.login'))
@@ -233,16 +231,14 @@ def add_course_to_cart():
 @login_required
 @views.route('/results', methods=['POST','GET'])
 def search():
-    #get what the user entered
-    user_input = request.args.get("query")
-    all_courses = Course.query.all()
-    relevant_results = []
-    #list of names of all courses
-    all_courses_names_list = [i.course_name for i in all_courses]
-    #if user input is a substring of course name, the course name is stored in a list
-    for i in all_courses_names_list:
-        if user_input.lower() in i.lower():
-            relevant_results.append(i)
-    #redirected to search_results page
-    return render_template('search_results.html',relevant_results=relevant_results, user=current_user, Course=Course)
+    if request.method == 'GET':
+        user=request.form.get("query")
+        allcourses=Course.query.all()
+        relevantresults=[]
+        allcoursesnameslist=[i.course_name for i in allcourses ]
+        for i in allcoursesnameslist:
+            if user in i:
+                relevantresults.append(i)
+        return render_template('searchresults.html',relevantresults=relevantresults)
+
         
