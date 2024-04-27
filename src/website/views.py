@@ -5,7 +5,6 @@ from flask_login import login_required, current_user
 from . import db
 import os
 from .models import Course, CourseContent, Cartcourse
-import random
 
 # Creating blueprint
 views = Blueprint('views', __name__)
@@ -15,9 +14,8 @@ views = Blueprint('views', __name__)
 @views.route('/', methods=['GET', 'POST'])
 @login_required
 def home_page():
-    # Get a random quote
-    quote = get_random_quote()
-    return render_template("index.html", user=current_user, quote=quote)
+    return render_template("index.html", user=current_user)
+
 
 @login_required
 @views.route('/favourites')
@@ -31,6 +29,7 @@ def favourites():
         return redirect(url_for('auth.login'))
 
 
+@login_required
 @views.route('/all_courses')
 def all_courses():
     if current_user.is_authenticated:
@@ -186,6 +185,7 @@ def course_add_content():
         if course_post_old:
             for course in course_post_old:
                 db.session.delete(course)
+        #add the new content to the database
         course_post = CourseContent(course_id=course_id, course_content=course_details)
         db.session.add(course_post)
         db.session.commit()
@@ -198,11 +198,15 @@ def course_add_content():
    
 @views.route('/click_cart')
 def add_course_to_cart():
+    
     course_id = request.args.get('course_id')
+    #get the course
     course = Course.query.filter_by(id=course_id).first()
     
     if course:
+        #check if it is already in cart of the same person (same course)
         courses_existent = Cartcourse.query.filter_by(course_id=course_id,user_id=current_user.id).first()
+        #if it is not already present, add it to the database
         if not courses_existent:
             course_name = course.course_name
             instructor_name = course.instructor_name
@@ -224,17 +228,7 @@ def add_course_to_cart():
     return render_template('all_courses.html',user=current_user)
 
 
-
-
-
-
-
-
-    
-    
-
-    
-
+@login_required
 @views.route('/results', methods=['POST','GET'])
 def search():
     if request.method == 'GET':
@@ -247,16 +241,4 @@ def search():
                 relevantresults.append(i)
         return render_template('searchresults.html',relevantresults=relevantresults)
 
-
-def get_random_quote():
-    #generating random quotes
-    quotes = [
-    "The greatest glory in living lies not in never falling, but in rising every time we fall. -Nelson Mandela",
-"The way to get started is to quit talking and begin doing. -Walt Disney",
-"Your time is limited, so don't waste it living someone else's life. Don't be trapped by dogma – which is living with the results of other people's thinking. -Steve Jobs",
-"The future belongs to those who believe in the beauty of their dreams. -Eleanor Roosevelt",
-"If you look at what you have in life, you'll always have more. If you look at what you don't have in life, you'll never have enough. -Oprah Winfrey",
-"If you set your goals ridiculously high and it's a failure, you will fail above everyone else's success. -James Cameron"
-
-]
-    return random.choice(quotes)
+        

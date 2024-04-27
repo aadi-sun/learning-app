@@ -3,6 +3,9 @@ from .models import User
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import db
 from flask_login import login_user, logout_user, current_user, login_required
+import smtplib
+from email.message import EmailMessage
+import os
 
 #create blueprint
 auth = Blueprint('auth', __name__)
@@ -65,6 +68,28 @@ def signup():
             db.session.add(new_user)
             db.session.commit()
             flash("Account created!", category='success')
+
+            #a mail is sent to the users mail id
+
+            fromaddr = "sunnapjaadi@gmail.com"
+            toaddrs = email
+            subject = "Welcome to app_name!!"
+            mailtext = "Hi! Welcome to our website. Have fun learning!"
+
+            msg = EmailMessage()
+            msg['Subject'] = subject
+            msg['From'] = fromaddr
+            msg['To'] = toaddrs
+            #content of mail
+            msg.set_content(mailtext)
+            MY_SECRET_VARIABLE = os.environ["MY_SECRET_VARIABLE"]
+            #send the mail
+            connection = smtplib.SMTP("smtp.gmail.com", 587)
+            connection.starttls()
+            connection.login(user=fromaddr, password=MY_SECRET_VARIABLE)
+            connection.send_message(msg)
+            connection.close()           
+
             return redirect(url_for('views.home_page'))
         
     return render_template("signup.html", user=current_user)
