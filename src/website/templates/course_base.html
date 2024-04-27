@@ -1,14 +1,16 @@
 
 {% extends "base.html" %}{% block title %}Course{% endblock %}
 {% block content %}
-<img src="static/{{ imagfile_name }}" alt="course_image">
+<img class="courseimg""src="static/{{ imagfile_name }}" alt="course_image">
+<div class="course mb-4 mt-4 me-4 ml-4">
 <h1>Course Name: {{ title }}</h1>
 
 <h2>Instructor: {{ instructor_name }}</h2>
 <h3 class="mb-4">Price: ${{ price }}</h3>
-<h3>Course Content</h3>
+</div>
+<h3 class="content">Course Content</h3>
 {% if course_details and user.accounttype == "1" %}
-    <p>{{ course_details }}</p>
+    <p class="paragraph">{{ course_details }}</p>
 {% elif user.accounttype == "1" %}
     <p>Instructor will add course content here</p>
     <button class="btn mt-4 mb-4" style="background-color: #170e29;"><a href="/click_cart?course_id={{ course_id }}" style="text-decoration: none;color: white;">Add course to cart</a></button> 

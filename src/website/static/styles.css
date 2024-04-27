@@ -76,3 +76,21 @@ footer {
     background-color: #9ca5d9;
 
 }
+.courseimg {
+    width:50%;
+}
+
+.course{
+    float:right;
+    padding-right:200px;
+
+
+}
+.content{
+    text-align:center;
+}
+.paragraph{
+    margin:0 auto;
+    max-width:400px;
+
+}
