@@ -1,21 +1,23 @@
+
+        
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask_login import login_required, current_user
 from . import db
 import os
 from .models import Course, CourseContent, Cartcourse
+import random
 
-
-#creating blueprint
+# Creating blueprint
 views = Blueprint('views', __name__)
 
-#defining paths of website
+# Defining paths of website
 
-
-@views.route('/', methods=['GET','POST'])
+@views.route('/', methods=['GET', 'POST'])
 @login_required
 def home_page():
-    return render_template("index.html", user=current_user)
-
+    # Get a random quote
+    quote = get_random_quote()
+    return render_template("index.html", user=current_user, quote=quote)
 
 @login_required
 @views.route('/favourites')
@@ -23,7 +25,7 @@ def favourites():
     if current_user.accounttype == "1":
         all_fav = Cartcourse.query.all()
         all_courses_present = Course.query.all()
-        return render_template("favourites.html",user=current_user, all_fav=all_fav, all_courses_present=all_courses_present)
+        return render_template("favourites.html", user=current_user, all_fav=all_fav, all_courses_present=all_courses_present)
     else:
         flash('Please login to see this page', category='error')
         return redirect(url_for('auth.login'))
@@ -245,4 +247,16 @@ def search():
                 relevantresults.append(i)
         return render_template('searchresults.html',relevantresults=relevantresults)
 
-        
+
+def get_random_quote():
+    #generating random quotes
+    quotes = [
+    "The greatest glory in living lies not in never falling, but in rising every time we fall. -Nelson Mandela",
+"The way to get started is to quit talking and begin doing. -Walt Disney",
+"Your time is limited, so don't waste it living someone else's life. Don't be trapped by dogma – which is living with the results of other people's thinking. -Steve Jobs",
+"The future belongs to those who believe in the beauty of their dreams. -Eleanor Roosevelt",
+"If you look at what you have in life, you'll always have more. If you look at what you don't have in life, you'll never have enough. -Oprah Winfrey",
+"If you set your goals ridiculously high and it's a failure, you will fail above everyone else's success. -James Cameron"
+
+]
+    return random.choice(quotes)
