@@ -231,14 +231,16 @@ def add_course_to_cart():
 @login_required
 @views.route('/results', methods=['POST','GET'])
 def search():
-    if request.method == 'GET':
-        user=request.form.get("query")
-        allcourses=Course.query.all()
-        relevantresults=[]
-        allcoursesnameslist=[i.course_name for i in allcourses ]
-        for i in allcoursesnameslist:
-            if user in i:
-                relevantresults.append(i)
-        return render_template('searchresults.html',relevantresults=relevantresults)
+    #fetch input from the user
+    user = request.form.get("query")
+    all_courses = Course.query.all()
+    relevant_results = []
+    #get all course names
+    all_courses_names_list = [i.course_name for i in all_courses ]
+    #if matching course is found, append it to a list
+    for i in all_courses_names_list:
+        if user in i:
+            relevant_results.append(i)
+    return render_template('search_results.html',relevant_results=relevant_results)
 
         
