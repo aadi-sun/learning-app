@@ -1,5 +1,3 @@
-
-        
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask_login import login_required, current_user
 from . import db
@@ -15,7 +13,7 @@ views = Blueprint('views', __name__)
 @views.route('/', methods=['GET', 'POST'])
 @login_required
 def home_page():
-    # Get a random quote
+    # Get a random quote to display in home page
     quote = get_random_quote()
     return render_template("index.html", user=current_user, quote=quote)
 
@@ -26,7 +24,8 @@ def favourites():
     if current_user.accounttype == "1":
         all_fav = Cartcourse.query.all()
         all_courses_present = Course.query.all()
-        return render_template("favourites.html", user=current_user, all_fav=all_fav, all_courses_present=all_courses_present)
+        return render_template("favourites.html", user=current_user, all_fav=all_fav,
+                                all_courses_present=all_courses_present)
     else:
         flash('Please login to see this page', category='error')
         return redirect(url_for('auth.login'))
@@ -45,7 +44,8 @@ def all_courses():
                 course_details = course_details.course_content
             else:
                 course_details = ''
-        return render_template('all_courses.html', user=current_user, all_courses=all_courses,course_details=course_details)
+        return render_template('all_courses.html', user=current_user, 
+                               all_courses=all_courses,course_details=course_details)
     else:
         flash('Please login to see this page', category='error')
         return redirect(url_for('auth.login'))   
@@ -224,7 +224,8 @@ def add_course_to_cart():
             flash('Course added to favourites!!',category='success')
             all_fav = Cartcourse.query.all()
             all_courses_present = Course.query.all()
-            return render_template('favourites.html',user=current_user, all_fav=all_fav, all_courses_present=all_courses_present)
+            return render_template('favourites.html',user=current_user, all_fav=all_fav, 
+                                   all_courses_present=all_courses_present)
         else:
             flash('Course is already in favourites!!')
             return render_template(f'course_{ course_id }.html',user=current_user)
@@ -234,15 +235,18 @@ def add_course_to_cart():
 @login_required
 @views.route('/results', methods=['POST','GET'])
 def search():
-    if request.method == 'GET':
-        user=request.form.get("query")
-        allcourses=Course.query.all()
-        relevantresults=[]
-        allcoursesnameslist=[i.course_name for i in allcourses ]
-        for i in allcoursesnameslist:
-            if user in i:
-                relevantresults.append(i)
-        return render_template('searchresults.html',relevantresults=relevantresults)
+    #fetch input from the user
+    user = request.args.get("query")
+    all_courses = Course.query.all()
+    relevant_results = []
+    #get all course names
+    all_courses_names_list = [i.course_name for i in all_courses ]
+    #if matching course is found, append it to a list
+    for i in all_courses_names_list:
+        if user.lower() in i.lower():
+            relevant_results.append(i)
+    return render_template('search_results.html',relevant_results=relevant_results, 
+                           user=current_user, Course=Course)
 
         
 
@@ -252,13 +256,22 @@ def search():
 def get_random_quote():
     quotes = [
         "The greatest glory in living lies not in never falling, but in rising every time we fall. -Nelson Mandela",
-"The way to get started is to quit talking and begin doing. -Walt Disney",
-"Your time is limited, so don't waste it living someone else's life. Don't be trapped by dogma – which is living with the results of other people's thinking. -Steve Jobs",
-"The future belongs to those who believe in the beauty of their dreams. -Eleanor Roosevelt",
-"If you look at what you have in life, you'll always have more. If you look at what you don't have in life, you'll never have enough. -Oprah Winfrey",
-"If you set your goals ridiculously high and it's a failure, you will fail above everyone else's success. -James Cameron",
-"You may say I'm a dreamer, but I'm not the only one. I hope someday you'll join us. And the world will live as one. -John Lennon"
+        "The way to get started is to quit talking and begin doing. -Walt Disney",
+        """Your time is limited, so don't waste it living someone else's life. Don't be trapped by dogma 
+        – which is living with the results of other people's thinking. -Steve Jobs""",
+        "The future belongs to those who believe in the beauty of their dreams. -Eleanor Roosevelt",
+        """If you look at what you have in life, you'll always have more. 
+        If you look at what you don't have in life, you'll never have enough. -Oprah Winfrey""",
+        """If you set your goals ridiculously high and it's a failure, 
+        you will fail above everyone else's success. -James Cameron""",
+        """You may say I'm a dreamer, but I'm not the only one. I hope someday you'll join us.
+          And the world will live as one. -John Lennon""",
+        "Education is the most powerful weapon which you can use to change the world. - Nelson Mandela",
+        "Education is one thing no one can take away from you. —Elin Nordegren",
+        "However difficult life may seem, there is always something you can do and succeed at. — Stephen Hawking"
 ]
+    
+    random_quote = random.choice(quotes)
 
-    return random.choice(quotes)
+    return random_quote
 

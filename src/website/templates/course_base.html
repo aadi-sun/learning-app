@@ -1,27 +1,27 @@
 
 {% extends "base.html" %}{% block title %}Course{% endblock %}
 {% block content %}
-<!-- write code here -->
-<!--Just write title for title and put any image and style them. I will replace them with the real stuff later.-->
-<div style="padding-bottom: 500px;">Code code code</div>
-<!--complete code above this-->
-<h1>
-    Course Name:Javascript
-</h1>
+<div class="flex-part mb-5">
+    <img class="courseimg" src="static/{{ imagfile_name }}" alt="course_image">
+    <div class="mb-4 mt-4 ms-4">
+        <h1 class="mb-3" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif"> Course: {{ title }}</h1>
+        <h4 class="mb-3" style="font-size:30px;font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">Instructor: {{ instructor_name }}</h4>
+        <h4 class="mb-4" style="font-size:30px;font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">Price: ${{ price }}</h4>
+    </div>
+</div>
+    
+<h3 class="mb-5" style="font-size:35px;text-align:center;font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">Course Content</h3>
 
-<h2>
-    Instructor:Aadi
-</h2>
-<h3>
-    Price:$50
-<p>
-    JavaScript is the world's most popular programming language.
-    JavaScript is the programming language of the Web.JavaScript is easy to learn.
-    This tutorial will teach you JavaScript from basic to advanced.
-</p>
-
-
-{% if user.accounttype == "1" %}
+{% if course_details and user.accounttype == "1" %}
+    <p class="paragraph">{{ course_details }}</p>
+{% elif user.accounttype == "1" %}
+    <p class="paragraph">Instructor will add course content here</p>
     <button class="btn mt-4 mb-4" style="background-color: #170e29;"><a href="/click_cart?course_id={{ course_id }}" style="text-decoration: none;color: white;">Add course to cart</a></button> 
+{% elif not course_details %}
+    <p class="paragraph">Instructor will add course content here</p>
+{% else %}
+    <p class="paragraph">{{ course_details }}</p>
+
 {% endif %}
+
 {% endblock %}
