@@ -75,7 +75,7 @@ def signup():
 
             fromaddr = "sunnapjaadi@gmail.com"
             toaddrs = email
-            subject = "Welcome to app_name!!"
+            subject = "Welcome to Braniac!!"
             mailtext = "Hi! Welcome to our website. Have fun learning!"
 
             msg = EmailMessage()
