@@ -82,7 +82,7 @@ def signup():
             msg['To'] = toaddrs
             #content of mail
             msg.set_content(mailtext)
-            MY_SECRET_VARIABLE = os.environ["MY_SECRET_VARIABLE"]
+            MY_SECRET_VARIABLE = os.environ.get("MY_SECRET_VARIABLE")
             #send the mail
             connection = smtplib.SMTP("smtp.gmail.com", 587)
             connection.starttls()

@@ -1,0 +1,11 @@
+environment:
+  MY_SECRET_VARIABLE: ${{ secrets.SMTP_PASS }}
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Debug GitHub Secrets
+        run: |
+          echo "SMTP_PASS: ${{ secrets.SMTP_PASS }}"
+          echo "MY_SECRET_VARIABLE: ${{ env.MY_SECRET_VARIABLE }}"
+
