@@ -1,5 +1,5 @@
 environment:
-  MY_SECRET_VARIABLE: ${{ secrets.SMTP_PASS }}
+  MY_SECRET_VARIABLE: ${{ secrets.SMTP_PASS }} 
 jobs:
   build:
     runs-on: ubuntu-latest
