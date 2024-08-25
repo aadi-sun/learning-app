@@ -3,8 +3,6 @@ from .models import User
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import db
 from flask_login import login_user, logout_user, current_user, login_required
-import smtplib
-from email.message import EmailMessage
 import os
 from dotenv import load_dotenv
 load_dotenv()
@@ -69,29 +67,7 @@ def signup():
                             name=name, accounttype=accounttype)
             db.session.add(new_user)
             db.session.commit()
-            flash("Account created!", category='success')
-
-            #a mail is sent to the users mail id
-
-            fromaddr = "sunnapjaadi@gmail.com"
-            toaddrs = email
-            subject = "Welcome to Braniac!!"
-            mailtext = "Hi! Welcome to our website. Have fun learning!"
-
-            msg = EmailMessage()
-            msg['Subject'] = subject
-            msg['From'] = fromaddr
-            msg['To'] = toaddrs
-            #content of mail
-            msg.set_content(mailtext)
-           
-            #send the mail
-            pas = os.environ.get("MY_SECRET_VARIABLE")
-            connection = smtplib.SMTP("smtp.gmail.com", 587)
-            connection.starttls()
-            connection.login(user=fromaddr, password=pas)
-            connection.send_message(msg)
-            connection.close()           
+            flash("Account created!", category='success') 
 
             return redirect(url_for('views.home_page'))
         
