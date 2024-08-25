@@ -4,8 +4,6 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from . import db
 from flask_login import login_user, logout_user, current_user, login_required
 import os
-from dotenv import load_dotenv
-load_dotenv()
 
 #create blueprint
 auth = Blueprint('auth', __name__)
