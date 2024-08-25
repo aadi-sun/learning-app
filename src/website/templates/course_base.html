@@ -20,10 +20,8 @@
     <button class="btn mt-4 mb-4 ms-4" style="background-color: #170e29;"><a href="/click_cart?course_id={{ course_id }}" style="text-decoration: none;color: white;">Add course to cart</a></button> 
 {% elif not course_details %}
     <p class="paragraph">Instructor will add course content here</p>
-    <button class="btn mt-4 mb-4 ms-4" style="background-color: #170e29;"><a href="/click_cart?course_id={{ course_id }}" style="text-decoration: none;color: white;">Add course to cart</a></button> 
 {% else %}
     <p class="paragraph">{{ course_details }}</p>
-    <button class="btn mt-4 mb-4 ms-4" style="background-color: #170e29;"><a href="/click_cart?course_id={{ course_id }}" style="text-decoration: none;color: white;">Add course to cart</a></button> 
 
 {% endif %}
 
